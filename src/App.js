@@ -5,11 +5,14 @@ const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
 
 function App() {
   const [mazeId, setMazeId] = useState(null);
-  const [mazeDisplay, setMazeDisplay] = useState(null);
+  const [maze, setMaze] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const getMazeId = async () => {
+    setLoading(true);
+    setError(null);
+
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -28,20 +31,20 @@ function App() {
 
       if (response.status === 200) {
         const result = await response.json();
-        return result.maze_id;
+        setMazeId(result.maze_id);
       } else {
         throw new Error(response.statusText);
       }
     } catch (err) {
-      throw new Error(err);
+      setError(String(err));
+    } finally {
+      setLoading(false);
     }
   };
 
   const getMaze = async () => {
-    setMazeId(null);
-    setMazeDisplay(null);
-    setLoading(false);
-    setError(false);
+    setMaze(null);
+    setLoading(true);
 
     const requestOptions = {
       method: 'GET',
@@ -51,14 +54,11 @@ function App() {
     };
 
     try {
-      const id = await getMazeId();
-      const response = await fetch(`${URL}/${id}/print`, requestOptions);
+      const response = await fetch(`${URL}/${mazeId}/print`, requestOptions);
 
       if (response.status === 200) {
-        const mazeDisplayResult = await response.text();
-
-        setMazeId(id);
-        setMazeDisplay(mazeDisplayResult);
+        const result = await response.text();
+        setMaze(result);
       } else {
         throw new Error(response.statusText);
       }
@@ -70,8 +70,12 @@ function App() {
   };
 
   useEffect(() => {
-    getMaze();
+    getMazeId();
   }, []);
+
+  useEffect(() => {
+    if (mazeId) getMaze();
+  }, [mazeId]);
 
   const move = async (val) => {
     const requestOptions = {
@@ -98,7 +102,7 @@ function App() {
       <main>
         {loading && <div>Loading...</div>}
         {error && <div>{error}</div>}
-        {mazeDisplay && (
+        {maze && (
           <div>
             <div>
               <button
@@ -142,7 +146,7 @@ function App() {
                 Stay
               </button>
             </div>
-            <pre>{mazeDisplay}</pre>
+            <pre>{maze}</pre>
           </div>
         )}
       </main>
