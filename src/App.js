@@ -12,6 +12,7 @@ function App() {
 
   const getMazeId = async () => {
     setLoading(true);
+    setResult(null);
     setError(null);
 
     const requestOptions = {
