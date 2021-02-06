@@ -106,44 +106,19 @@ function App() {
           <div>
             {result?.result === 'won' ? null : (
               <div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    move('west');
-                  }}
-                >
+                <button type="button" onClick={() => move('west')}>
                   West
                 </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    move('north');
-                  }}
-                >
+                <button type="button" onClick={() => move('north')}>
                   North
                 </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    move('east');
-                  }}
-                >
+                <button type="button" onClick={() => move('east')}>
                   East
                 </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    move('south');
-                  }}
-                >
+                <button type="button" onClick={() => move('south')}>
                   South
                 </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    move('stay');
-                  }}
-                >
+                <button type="button" onClick={() => move('stay')}>
                   Stay
                 </button>
               </div>
