@@ -24,3 +24,35 @@ pre {
     font-size: $font-size-medium;
   }
 }
+
+.move-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: repeat(3, auto);
+  grid-gap: 1rem;
+}
+
+.west {
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.north {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.east {
+  grid-column: 3 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.south {
+  grid-column: 2 / span 1;
+  grid-row: 3 / span 1;
+}
+
+.stay {
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+}

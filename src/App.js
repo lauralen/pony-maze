@@ -106,20 +106,40 @@ function App() {
         {maze && (
           <>
             {result?.result === 'won' ? null : (
-              <div>
-                <button type="button" onClick={() => move('west')}>
+              <div className="move-buttons">
+                <button
+                  className="west"
+                  type="button"
+                  onClick={() => move('west')}
+                >
                   West
                 </button>
-                <button type="button" onClick={() => move('north')}>
+                <button
+                  className="north"
+                  type="button"
+                  onClick={() => move('north')}
+                >
                   North
                 </button>
-                <button type="button" onClick={() => move('east')}>
+                <button
+                  className="east"
+                  type="button"
+                  onClick={() => move('east')}
+                >
                   East
                 </button>
-                <button type="button" onClick={() => move('south')}>
+                <button
+                  className="south"
+                  type="button"
+                  onClick={() => move('south')}
+                >
                   South
                 </button>
-                <button type="button" onClick={() => move('stay')}>
+                <button
+                  className="stay"
+                  type="button"
+                  onClick={() => move('stay')}
+                >
                   Stay
                 </button>
               </div>
