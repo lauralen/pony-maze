@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import './style/index.scss';
 
 const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
 
@@ -100,8 +100,8 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">Pony maze</header>
+    <>
+      <header className="header">Pony maze</header>
       <main>
         {maze && (
           <div>
@@ -136,7 +136,7 @@ function App() {
         {loading && <div>Loading...</div>}
         {error && <div>{error}</div>}
       </main>
-    </div>
+    </>
   );
 }
 
