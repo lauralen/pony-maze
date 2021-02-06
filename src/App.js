@@ -5,6 +5,7 @@ const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
 
 function App() {
   const [maze, setMaze] = useState(null);
+  const [mazeDisplay, setMazeDisplay] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -38,6 +39,7 @@ function App() {
 
   const getMaze = async () => {
     setMaze(null);
+    setMazeDisplay(null);
     setLoading(false);
     setError(false);
 
@@ -50,13 +52,22 @@ function App() {
 
     try {
       const id = await getMazeId();
-      const response = await fetch(`${URL}/${id}`, requestOptions);
+      const mazeResponse = await fetch(`${URL}/${id}`, requestOptions);
+      const mazeDisplayResponse = await fetch(
+        `${URL}/${id}/print`,
+        requestOptions,
+      );
 
-      if (response.status === 200) {
-        const result = await response.json();
-        setMaze(result);
+      if (mazeResponse.status === 200 && mazeDisplayResponse.status === 200) {
+        const mazeResult = await mazeResponse.json();
+        const mazeDisplayResult = await mazeDisplayResponse.text();
+
+        setMaze(mazeResult);
+        setMazeDisplay(mazeDisplayResult);
+      } else if (mazeResponse.status !== 200) {
+        throw new Error(mazeResponse.statusText);
       } else {
-        throw new Error(response.statusText);
+        throw new Error(mazeDisplayResponse.statusText);
       }
     } catch (err) {
       setError(String(err));
@@ -75,6 +86,7 @@ function App() {
       <main>
         {loading && <div>Loading...</div>}
         {error && <div>{error}</div>}
+        {mazeDisplay && <pre>{mazeDisplay}</pre>}
       </main>
     </div>
   );
