@@ -8,6 +8,7 @@ function App() {
   const [maze, setMaze] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [result, setResult] = useState(null);
 
   const getMazeId = async () => {
     setLoading(true);
@@ -43,7 +44,6 @@ function App() {
   };
 
   const getMaze = async () => {
-    setMaze(null);
     setLoading(true);
 
     const requestOptions = {
@@ -91,8 +91,10 @@ function App() {
     try {
       const response = await fetch(`${URL}/${mazeId}`, requestOptions);
       const result = await response.json();
+      setResult({ result: result.state, message: result['state-result'] });
+      getMaze();
     } catch (err) {
-      throw new Error(err);
+      setResult({ result: 'error', message: 'Failed to move' });
     }
   };
 
@@ -100,8 +102,6 @@ function App() {
     <div className="App">
       <header className="App-header">Pony maze</header>
       <main>
-        {loading && <div>Loading...</div>}
-        {error && <div>{error}</div>}
         {maze && (
           <div>
             <div>
@@ -147,8 +147,11 @@ function App() {
               </button>
             </div>
             <pre>{maze}</pre>
+            {result?.message && !loading && <p>{result.message}</p>}
           </div>
         )}
+        {loading && <div>Loading...</div>}
+        {error && <div>{error}</div>}
       </main>
     </div>
   );
