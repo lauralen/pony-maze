@@ -129,7 +129,9 @@ function App() {
             <pre>{maze}</pre>
             {result?.message && !loading && <p>{result.message}</p>}
             {result?.result === 'won' && (
-              <Button onClick={() => getMazeId()}>Play again</Button>
+              <Button className="primary" onClick={() => getMazeId()}>
+                Play again
+              </Button>
             )}
           </>
         )}
