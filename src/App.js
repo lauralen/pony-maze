@@ -5,6 +5,7 @@ const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
 
 function App() {
   const [maze, setMaze] = useState(null);
+  const [mazeId, setMazeId] = useState(null);
   const [mazeDisplay, setMazeDisplay] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -38,6 +39,7 @@ function App() {
   };
 
   const getMaze = async () => {
+    setMazeId(null);
     setMaze(null);
     setMazeDisplay(null);
     setLoading(false);
@@ -62,6 +64,7 @@ function App() {
         const mazeResult = await mazeResponse.json();
         const mazeDisplayResult = await mazeDisplayResponse.text();
 
+        setMazeId(id);
         setMaze(mazeResult);
         setMazeDisplay(mazeDisplayResult);
       } else if (mazeResponse.status !== 200) {
@@ -80,13 +83,78 @@ function App() {
     getMaze();
   }, []);
 
+  const move = async (val) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        direction: val,
+      }),
+    };
+
+    try {
+      const response = await fetch(`${URL}/${mazeId}`, requestOptions);
+      const result = await response.json();
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">Pony maze</header>
       <main>
         {loading && <div>Loading...</div>}
         {error && <div>{error}</div>}
-        {mazeDisplay && <pre>{mazeDisplay}</pre>}
+        {mazeDisplay && (
+          <div>
+            <div>
+              <button
+                type="button"
+                onClick={() => {
+                  move('west');
+                }}
+              >
+                West
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  move('north');
+                }}
+              >
+                North
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  move('east');
+                }}
+              >
+                East
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  move('south');
+                }}
+              >
+                South
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  move('stay');
+                }}
+              >
+                Stay
+              </button>
+            </div>
+            <pre>{mazeDisplay}</pre>
+          </div>
+        )}
       </main>
     </div>
   );
