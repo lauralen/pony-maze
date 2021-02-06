@@ -4,7 +4,6 @@ import './App.css';
 const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
 
 function App() {
-  const [maze, setMaze] = useState(null);
   const [mazeId, setMazeId] = useState(null);
   const [mazeDisplay, setMazeDisplay] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -40,7 +39,6 @@ function App() {
 
   const getMaze = async () => {
     setMazeId(null);
-    setMaze(null);
     setMazeDisplay(null);
     setLoading(false);
     setError(false);
@@ -54,23 +52,15 @@ function App() {
 
     try {
       const id = await getMazeId();
-      const mazeResponse = await fetch(`${URL}/${id}`, requestOptions);
-      const mazeDisplayResponse = await fetch(
-        `${URL}/${id}/print`,
-        requestOptions,
-      );
+      const response = await fetch(`${URL}/${id}/print`, requestOptions);
 
-      if (mazeResponse.status === 200 && mazeDisplayResponse.status === 200) {
-        const mazeResult = await mazeResponse.json();
-        const mazeDisplayResult = await mazeDisplayResponse.text();
+      if (response.status === 200) {
+        const mazeDisplayResult = await response.text();
 
         setMazeId(id);
-        setMaze(mazeResult);
         setMazeDisplay(mazeDisplayResult);
-      } else if (mazeResponse.status !== 200) {
-        throw new Error(mazeResponse.statusText);
       } else {
-        throw new Error(mazeDisplayResponse.statusText);
+        throw new Error(response.statusText);
       }
     } catch (err) {
       setError(String(err));
