@@ -18,11 +18,10 @@ function App() {
   const [maze, setMaze] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState({ message: 'Make first move' });
 
   const getMazeId = async () => {
     setLoading(true);
-    setResult(null);
     setError(null);
 
     const requestOptions = {
