@@ -29,7 +29,8 @@ pre {
   display: grid;
   grid-template-columns: repeat(3, auto);
   grid-template-rows: repeat(3, auto);
-  grid-gap: 1rem;
+  justify-items: center;
+  align-items: center;
 }
 
 .west {

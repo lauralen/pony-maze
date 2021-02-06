@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './style/index.scss';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faArrowLeft,
+  faArrowUp,
+  faArrowRight,
+  faArrowDown,
+} from '@fortawesome/free-solid-svg-icons';
+
 import Button from './components/Button';
 
 const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
@@ -110,16 +118,16 @@ function App() {
             {result?.result === 'won' ? null : (
               <div className="move-buttons">
                 <Button className="west" onClick={() => move('west')}>
-                  West
+                  <FontAwesomeIcon icon={faArrowLeft} />
                 </Button>
                 <Button className="north" onClick={() => move('north')}>
-                  North
+                  <FontAwesomeIcon icon={faArrowUp} />
                 </Button>
                 <Button className="east" onClick={() => move('east')}>
-                  East
+                  <FontAwesomeIcon icon={faArrowRight} />
                 </Button>
                 <Button className="south" onClick={() => move('south')}>
-                  South
+                  <FontAwesomeIcon icon={faArrowDown} />
                 </Button>
                 <Button className="stay" onClick={() => move('stay')}>
                   Stay
