@@ -104,50 +104,57 @@ function App() {
       <main>
         {maze && (
           <div>
-            <div>
-              <button
-                type="button"
-                onClick={() => {
-                  move('west');
-                }}
-              >
-                West
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  move('north');
-                }}
-              >
-                North
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  move('east');
-                }}
-              >
-                East
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  move('south');
-                }}
-              >
-                South
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  move('stay');
-                }}
-              >
-                Stay
-              </button>
-            </div>
+            {result?.result === 'won' ? null : (
+              <div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    move('west');
+                  }}
+                >
+                  West
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    move('north');
+                  }}
+                >
+                  North
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    move('east');
+                  }}
+                >
+                  East
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    move('south');
+                  }}
+                >
+                  South
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    move('stay');
+                  }}
+                >
+                  Stay
+                </button>
+              </div>
+            )}
             <pre>{maze}</pre>
             {result?.message && !loading && <p>{result.message}</p>}
+            {result?.result === 'won' && (
+              <button type="button" onClick={() => getMazeId()}>
+                Play again
+              </button>
+            )}
           </div>
         )}
         {loading && <div>Loading...</div>}
