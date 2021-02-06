@@ -4,15 +4,11 @@ import './App.css';
 const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
 
 function App() {
-  const [mazeId, setMazeId] = useState(null);
+  const [maze, setMaze] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const getMazeId = async () => {
-    setMazeId(null);
-    setLoading(false);
-    setError(false);
-
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -31,7 +27,34 @@ function App() {
 
       if (response.status === 200) {
         const result = await response.json();
-        setMazeId(result.maze_id);
+        return result.maze_id;
+      } else {
+        throw new Error(response.statusText);
+      }
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+
+  const getMaze = async () => {
+    setMaze(null);
+    setLoading(false);
+    setError(false);
+
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const id = await getMazeId();
+      const response = await fetch(`${URL}/${id}`, requestOptions);
+
+      if (response.status === 200) {
+        const result = await response.json();
+        setMaze(result);
       } else {
         throw new Error(response.statusText);
       }
@@ -43,7 +66,7 @@ function App() {
   };
 
   useEffect(() => {
-    getMazeId();
+    getMaze();
   }, []);
 
   return (
@@ -52,7 +75,6 @@ function App() {
       <main>
         {loading && <div>Loading...</div>}
         {error && <div>{error}</div>}
-        {mazeId && <div>{mazeId}</div>}
       </main>
     </div>
   );
