@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './style/index.scss';
 
+import Button from './components/Button';
+
 const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
 
 function App() {
@@ -107,49 +109,27 @@ function App() {
           <>
             {result?.result === 'won' ? null : (
               <div className="move-buttons">
-                <button
-                  className="west"
-                  type="button"
-                  onClick={() => move('west')}
-                >
+                <Button className="west" onClick={() => move('west')}>
                   West
-                </button>
-                <button
-                  className="north"
-                  type="button"
-                  onClick={() => move('north')}
-                >
+                </Button>
+                <Button className="north" onClick={() => move('north')}>
                   North
-                </button>
-                <button
-                  className="east"
-                  type="button"
-                  onClick={() => move('east')}
-                >
+                </Button>
+                <Button className="east" onClick={() => move('east')}>
                   East
-                </button>
-                <button
-                  className="south"
-                  type="button"
-                  onClick={() => move('south')}
-                >
+                </Button>
+                <Button className="south" onClick={() => move('south')}>
                   South
-                </button>
-                <button
-                  className="stay"
-                  type="button"
-                  onClick={() => move('stay')}
-                >
+                </Button>
+                <Button className="stay" onClick={() => move('stay')}>
                   Stay
-                </button>
+                </Button>
               </div>
             )}
             <pre>{maze}</pre>
             {result?.message && !loading && <p>{result.message}</p>}
             {result?.result === 'won' && (
-              <button type="button" onClick={() => getMazeId()}>
-                Play again
-              </button>
+              <Button onClick={() => getMazeId()}>Play again</Button>
             )}
           </>
         )}
