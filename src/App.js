@@ -104,7 +104,7 @@ function App() {
       <header className="header">Pony maze</header>
       <main>
         {maze && (
-          <div>
+          <>
             {result?.result === 'won' ? null : (
               <div>
                 <button type="button" onClick={() => move('west')}>
@@ -131,7 +131,7 @@ function App() {
                 Play again
               </button>
             )}
-          </div>
+          </>
         )}
         {loading && <div>Loading...</div>}
         {error && <div>{error}</div>}
