@@ -57,3 +57,14 @@ pre {
   grid-column: 2 / span 1;
   grid-row: 2 / span 1;
 }
+
+.modal-open {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.modal-close {
+  margin-top: 2rem;
+}

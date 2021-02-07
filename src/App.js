@@ -7,9 +7,12 @@ import {
   faArrowUp,
   faArrowRight,
   faArrowDown,
+  faQuestionCircle,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 
 import Button from './components/Button';
+import Modal from './components/Modal';
 
 const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
 
@@ -19,6 +22,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [result, setResult] = useState({ message: 'Make first move' });
+  const [modalOpen, setModalOpen] = useState(false);
 
   const getMazeId = async () => {
     setLoading(true);
@@ -145,6 +149,22 @@ function App() {
         {loading && <div>Loading...</div>}
         {error && <div>{error}</div>}
       </main>
+
+      <Button className="round modal-open" onClick={() => setModalOpen(true)}>
+        <FontAwesomeIcon icon={faQuestionCircle} />
+      </Button>
+
+      {modalOpen && (
+        <Modal>
+          <p>
+            Move pony (P) to the exit (E) and watch out for the monster
+            protecting the maze (D).
+          </p>
+          <Button className="modal-close" onClick={() => setModalOpen(false)}>
+            <FontAwesomeIcon icon={faTimes} />
+          </Button>
+        </Modal>
+      )}
     </>
   );
 }
