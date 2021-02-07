@@ -118,7 +118,7 @@ function App() {
       <main>
         {maze && (
           <>
-            {result?.result === 'won' ? null : (
+            {result?.result === 'won' || result?.result === 'over' ? null : (
               <div className="move-buttons">
                 <Button className="west" onClick={() => move('west')}>
                   <FontAwesomeIcon icon={faArrowLeft} />
@@ -139,11 +139,12 @@ function App() {
             )}
             <pre>{maze}</pre>
             {result?.message && !loading && <p>{result.message}</p>}
-            {result?.result === 'won' && (
-              <Button className="primary" onClick={() => getMazeId()}>
-                Play again
-              </Button>
-            )}
+            {result?.result === 'won'
+              || (result?.result === 'over' && (
+                <Button className="primary" onClick={() => getMazeId()}>
+                  Play again
+                </Button>
+              ))}
           </>
         )}
         {loading && <div>Loading...</div>}
