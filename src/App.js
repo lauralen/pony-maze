@@ -15,18 +15,20 @@ import Button from './components/Button';
 import Modal from './components/Modal';
 
 const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
+const INITIAL_RESULT = { message: 'Make first move' };
 
 function App() {
   const [mazeId, setMazeId] = useState(null);
   const [maze, setMaze] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [result, setResult] = useState({ message: 'Make first move' });
+  const [result, setResult] = useState(INITIAL_RESULT);
   const [modalOpen, setModalOpen] = useState(false);
 
   const getMazeId = async () => {
     setLoading(true);
     setError(null);
+    setResult(INITIAL_RESULT);
 
     const requestOptions = {
       method: 'POST',
