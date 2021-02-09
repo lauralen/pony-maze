@@ -15,20 +15,19 @@ import Button from './components/Button';
 import Modal from './components/Modal';
 
 const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
-const INITIAL_RESULT = { message: 'Make first move' };
 
 function App() {
   const [mazeId, setMazeId] = useState(null);
   const [maze, setMaze] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [result, setResult] = useState(INITIAL_RESULT);
+  const [result, setResult] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
   const getMazeId = async () => {
     setLoading(true);
     setError(null);
-    setResult(INITIAL_RESULT);
+    setResult({ message: 'Make first move' });
 
     const requestOptions = {
       method: 'POST',
@@ -120,6 +119,7 @@ function App() {
       <main>
         {maze && (
           <>
+            <pre>{maze}</pre>
             {result?.result === 'won' || result?.result === 'over' ? null : (
               <div className="move-buttons">
                 <Button className="west" onClick={() => move('west')}>
@@ -139,18 +139,18 @@ function App() {
                 </Button>
               </div>
             )}
-            <pre>{maze}</pre>
-            {result?.message && !loading && <p>{result.message}</p>}
-            {result?.result === 'won'
-              || (result?.result === 'over' && (
-                <Button className="primary" onClick={() => getMazeId()}>
-                  Play again
-                </Button>
-              ))}
+            {result?.message && !loading && (
+              <p className="message">{result.message}</p>
+            )}
+            {(result?.result === 'won' || result?.result === 'over') && (
+              <Button className="primary" onClick={() => getMazeId()}>
+                Play again
+              </Button>
+            )}
           </>
         )}
-        {loading && <div>Loading...</div>}
-        {error && <div>{error}</div>}
+        {loading && <p className="message">Loading...</p>}
+        {error && <p className="message">{error}</p>}
       </main>
 
       <Button className="round modal-open" onClick={() => setModalOpen(true)}>
