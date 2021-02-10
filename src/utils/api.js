@@ -1,4 +1,4 @@
-const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
+export const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
 
 export async function loadMazeId() {
   const requestOptions = {
