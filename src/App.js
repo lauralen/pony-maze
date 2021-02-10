@@ -72,11 +72,13 @@ function App() {
 
   return (
     <>
-      <header className="header">Pony maze</header>
+      <header className="header" data-testid="header">
+        Pony maze
+      </header>
       <main>
         {maze && (
           <>
-            <pre>{maze}</pre>
+            <pre data-testid="maze">{maze}</pre>
             {result?.result === 'won' || result?.result === 'over' ? null : (
               <div className="move-buttons">
                 <Button className="west" onClick={() => move('west')}>
@@ -97,20 +99,38 @@ function App() {
               </div>
             )}
             {result?.message && !loading && (
-              <p className="message">{result.message}</p>
+              <p className="message" data-testid="message">
+                {result.message}
+              </p>
             )}
             {(result?.result === 'won' || result?.result === 'over') && (
-              <Button className="primary" onClick={() => getMazeId()}>
+              <Button
+                className="primary"
+                onClick={() => getMazeId()}
+                data-testid="btn-play-again"
+              >
                 Play again
               </Button>
             )}
           </>
         )}
-        {loading && <p className="message">Loading...</p>}
-        {error && <p className="message">{error}</p>}
+        {loading && (
+          <p className="message" data-testid="loader">
+            Loading...
+          </p>
+        )}
+        {error && (
+          <p className="message" data-testid="error">
+            {error}
+          </p>
+        )}
       </main>
 
-      <Button className="round modal-open" onClick={() => setModalOpen(true)}>
+      <Button
+        className="round modal-open"
+        onClick={() => setModalOpen(true)}
+        data-testid="btn-modal-open"
+      >
         <FontAwesomeIcon icon={faQuestionCircle} />
       </Button>
 
@@ -120,7 +140,11 @@ function App() {
             Move pony (P) to the exit (E) and watch out for the monster
             protecting the maze (D).
           </p>
-          <Button className="modal-close" onClick={() => setModalOpen(false)}>
+          <Button
+            className="modal-close"
+            onClick={() => setModalOpen(false)}
+            data-testid="btn-modal-close"
+          >
             <FontAwesomeIcon icon={faTimes} />
           </Button>
         </Modal>
