@@ -1,11 +1,11 @@
 export const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
 
+const headers = { 'Content-Type': 'application/json' };
+
 export async function loadMazeId() {
   const requestOptions = {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers,
     body: JSON.stringify({
       'maze-width': 15,
       'maze-height': 15,
@@ -27,9 +27,7 @@ export async function loadMazeId() {
 export const loadMaze = async (id) => {
   const requestOptions = {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers,
   };
 
   const response = await fetch(`${URL}/${id}/print`, requestOptions);
@@ -45,9 +43,7 @@ export const loadMaze = async (id) => {
 export const setMove = async (val, mazeId) => {
   const requestOptions = {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers,
     body: JSON.stringify({
       direction: val,
     }),
