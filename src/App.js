@@ -197,6 +197,10 @@ function App() {
             Move pony (P) to the exit (E) and watch out for the monster
             protecting the maze (D).
           </p>
+          <p>
+            Pony can also be controlled using keyboard. Use arrow buttons to
+            move and enter to stay in current position.
+          </p>
           <Button
             className="modal-close"
             onClick={() => setModalOpen(false)}
