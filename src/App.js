@@ -54,6 +54,13 @@ function App() {
 
   useEffect(() => {
     getMazeId();
+
+    const hasPlayed = JSON.parse(localStorage.getItem('hasPlayed'));
+
+    if (!hasPlayed) {
+      setModalOpen(true);
+      localStorage.setItem('hasPlayed', JSON.stringify(true));
+    }
   }, []);
 
   useEffect(() => {

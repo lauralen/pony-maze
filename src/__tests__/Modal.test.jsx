@@ -20,3 +20,23 @@ test('opens modal', async () => {
   const buttonClose = screen.getByTestId('btn-modal-close');
   expect(buttonClose).toBeTruthy();
 });
+
+test('displays modal for new player', async () => {
+  Storage.prototype.getItem = jest.fn(() => null);
+
+  await act(async () => {
+    render(<App />);
+  });
+
+  expect(screen.getByTestId('modal')).toBeTruthy();
+});
+
+test('does not display modal for recurring player', async () => {
+  Storage.prototype.getItem = jest.fn(() => true);
+
+  await act(async () => {
+    render(<App />);
+  });
+
+  expect(screen.queryByTestId('modal')).toBeNull();
+});
