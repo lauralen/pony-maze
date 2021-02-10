@@ -21,6 +21,25 @@ test('opens modal', async () => {
   expect(buttonClose).toBeTruthy();
 });
 
+test('closes modal', async () => {
+  await act(async () => {
+    render(<App />);
+  });
+
+  const buttonOpen = screen.getByTestId('btn-modal-open');
+  expect(buttonOpen).toBeTruthy();
+  fireEvent.click(buttonOpen);
+
+  const modal = screen.getByTestId('modal');
+  expect(modal).toBeTruthy();
+
+  const buttonClose = screen.getByTestId('btn-modal-close');
+  expect(buttonClose).toBeTruthy();
+  fireEvent.click(buttonClose);
+
+  expect(screen.queryByTestId('modal')).toBeNull();
+});
+
 test('displays modal for new player', async () => {
   Storage.prototype.getItem = jest.fn(() => null);
 
