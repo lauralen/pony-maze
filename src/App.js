@@ -107,7 +107,7 @@ function App() {
               <Button
                 className="primary"
                 onClick={() => getMazeId()}
-                data-testid="btn-play-again"
+                testId="btn-play-again"
               >
                 Play again
               </Button>
@@ -129,7 +129,7 @@ function App() {
       <Button
         className="round modal-open"
         onClick={() => setModalOpen(true)}
-        data-testid="btn-modal-open"
+        testId="btn-modal-open"
       >
         <FontAwesomeIcon icon={faQuestionCircle} />
       </Button>
@@ -143,7 +143,7 @@ function App() {
           <Button
             className="modal-close"
             onClick={() => setModalOpen(false)}
-            data-testid="btn-modal-close"
+            testId="btn-modal-close"
           >
             <FontAwesomeIcon icon={faTimes} />
           </Button>
