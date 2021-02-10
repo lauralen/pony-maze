@@ -1,39 +1,28 @@
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
+import { render, act, screen } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
 
 import App from '../App';
 import { URL } from '../utils/api';
 
-let container = null;
-
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
-
 afterEach(() => {
   fetchMock.restore();
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
 });
 
 test('renders app without crashing', async () => {
   await act(async () => {
-    render(<App />, container);
+    render(<App />);
   });
 
-  expect(container.querySelector("[data-testid='header']")).toBeTruthy();
+  expect(screen.getByTestId('header')).toBeTruthy();
 });
 
 test('displays loader', async () => {
   await act(async () => {
-    render(<App />, container);
+    render(<App />);
   });
 
-  expect(container.querySelector("[data-testid='loader']")).toBeTruthy();
+  expect(screen.getByTestId('loader')).toBeTruthy();
 });
 
 test('displays error message', async () => {
@@ -41,10 +30,10 @@ test('displays error message', async () => {
   fetchMock.mock(`${URL}/123/print`, 500);
 
   await act(async () => {
-    render(<App />, container);
+    render(<App />);
   });
 
-  expect(container.querySelector("[data-testid='error']")).toBeTruthy();
+  expect(screen.getByTestId('error')).toBeTruthy();
 });
 
 test('displays maze', async () => {
@@ -52,9 +41,9 @@ test('displays maze', async () => {
   fetchMock.mock(`${URL}/123/print`, 'maze');
 
   await act(async () => {
-    render(<App />, container);
+    render(<App />);
   });
 
-  expect(container.querySelector("[data-testid='message']")).toBeTruthy();
-  expect(container.querySelector("[data-testid='maze']")).toBeTruthy();
+  expect(screen.getByTestId('message')).toBeTruthy();
+  expect(screen.getByTestId('maze')).toBeTruthy();
 });
