@@ -14,7 +14,7 @@ import {
 import Button from './components/Button';
 import Modal from './components/Modal';
 
-const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
+import { loadMazeId, loadMaze, setMove } from './utils/api';
 
 function App() {
   const [mazeId, setMazeId] = useState(null);
@@ -29,28 +29,9 @@ function App() {
     setError(null);
     setResult({ message: 'Make first move' });
 
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        'maze-width': 15,
-        'maze-height': 15,
-        'maze-player-name': 'Rainbow Dash',
-        difficulty: 0,
-      }),
-    };
-
     try {
-      const response = await fetch(URL, requestOptions);
-
-      if (response.status === 200) {
-        const result = await response.json();
-        setMazeId(result.maze_id);
-      } else {
-        throw new Error(response.statusText);
-      }
+      const result = await loadMazeId();
+      setMazeId(result.maze_id);
     } catch (err) {
       setError(String(err));
     } finally {
@@ -61,22 +42,9 @@ function App() {
   const getMaze = async () => {
     setLoading(true);
 
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
     try {
-      const response = await fetch(`${URL}/${mazeId}/print`, requestOptions);
-
-      if (response.status === 200) {
-        const result = await response.text();
-        setMaze(result);
-      } else {
-        throw new Error(response.statusText);
-      }
+      const result = await loadMaze(mazeId);
+      setMaze(result);
     } catch (err) {
       setError(String(err));
     } finally {
@@ -93,19 +61,8 @@ function App() {
   }, [mazeId]);
 
   const move = async (val) => {
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        direction: val,
-      }),
-    };
-
     try {
-      const response = await fetch(`${URL}/${mazeId}`, requestOptions);
-      const result = await response.json();
+      const result = await setMove(val, mazeId);
       setResult({ result: result.state, message: result['state-result'] });
       getMaze();
     } catch (err) {
