@@ -1,6 +1,10 @@
 @import './mixins';
 @import './variables';
 
+.keypress-handler:focus {
+  outline: none;
+}
+
 .header {
   display: flex;
   justify-content: space-between;

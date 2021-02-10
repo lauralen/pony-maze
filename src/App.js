@@ -85,8 +85,38 @@ function App() {
     }
   };
 
+  const handleKeyDown = (event) => {
+    const { key } = event;
+    let direction;
+
+    switch (key) {
+      case 'ArrowUp':
+        direction = 'north';
+        break;
+      case 'ArrowRight':
+        direction = 'east';
+        break;
+      case 'ArrowDown':
+        direction = 'south';
+        break;
+      case 'ArrowLeft':
+        direction = 'west';
+        break;
+      case 'Enter':
+        direction = 'stay';
+        break;
+    }
+
+    if (direction) move(direction);
+  };
+
   return (
-    <>
+    <div
+      className="keypress-handler"
+      role="button"
+      tabIndex="0"
+      onKeyDown={(event) => handleKeyDown(event)}
+    >
       <header className="header" data-testid="header">
         <h1 className="header-title">Pony maze</h1>
         <Select
@@ -176,7 +206,7 @@ function App() {
           </Button>
         </Modal>
       )}
-    </>
+    </div>
   );
 }
 
