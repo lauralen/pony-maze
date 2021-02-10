@@ -13,8 +13,11 @@ import {
 
 import Button from './components/Button';
 import Modal from './components/Modal';
+import Select from './components/Select';
 
 import { loadMazeId, loadMaze, setMove } from './utils/api';
+
+const LEVELS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function App() {
   const [mazeId, setMazeId] = useState(null);
@@ -23,6 +26,7 @@ function App() {
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [difficulty, setDifficulty] = useState(0);
 
   const getMazeId = async () => {
     setLoading(true);
@@ -30,7 +34,7 @@ function App() {
     setResult({ message: 'Make first move' });
 
     try {
-      const result = await loadMazeId();
+      const result = await loadMazeId(difficulty);
       setMazeId(result.maze_id);
     } catch (err) {
       setError(String(err));
@@ -67,6 +71,10 @@ function App() {
     if (mazeId) getMaze();
   }, [mazeId]);
 
+  useEffect(() => {
+    getMazeId();
+  }, [difficulty]);
+
   const move = async (val) => {
     try {
       const result = await setMove(val, mazeId);
@@ -80,7 +88,19 @@ function App() {
   return (
     <>
       <header className="header" data-testid="header">
-        Pony maze
+        <h1 className="header-title">Pony maze</h1>
+        <Select
+          label="Difficulty:"
+          value={difficulty}
+          name="difficulty"
+          onChange={(event) => setDifficulty(Number(event.target.value))}
+        >
+          {LEVELS.map((level) => (
+            <option key={level} value={level}>
+              {level}
+            </option>
+          ))}
+        </Select>
       </header>
       <main>
         {maze && (

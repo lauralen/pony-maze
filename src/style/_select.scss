@@ -1,0 +1,12 @@
+@import './mixins';
+@import './variables';
+
+.select-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+select {
+  margin-left: 1rem;
+  padding: 0.5rem;
+}

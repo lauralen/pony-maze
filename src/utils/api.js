@@ -2,7 +2,7 @@ export const URL = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
 
 const headers = { 'Content-Type': 'application/json' };
 
-export async function loadMazeId() {
+export async function loadMazeId(difficulty) {
   const requestOptions = {
     method: 'POST',
     headers,
@@ -10,7 +10,7 @@ export async function loadMazeId() {
       'maze-width': 15,
       'maze-height': 15,
       'maze-player-name': 'Rainbow Dash',
-      difficulty: 0,
+      difficulty,
     }),
   };
 
