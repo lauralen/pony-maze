@@ -1,0 +1,11 @@
+@import '../style/mixins';
+@import '../style/variables';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 3rem;
+  color: $black;
+  background-color: rgba($primary, 0.3);
+}

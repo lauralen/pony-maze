@@ -1,20 +1,6 @@
 @import './mixins';
 @import './variables';
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 3rem;
-  color: $black;
-  background-color: rgba($primary, 0.3);
-}
-
-.header-title {
-  font-size: $font-size-large;
-  font-weight: $font-weight-bold;
-}
-
 .west {
   grid-column: 1 / span 1;
   grid-row: 2 / span 1;

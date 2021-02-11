@@ -6,6 +6,8 @@ import { faQuestionCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import style from './App.module.scss';
 
+import Header from './layout/Header';
+
 import Button from './components/Button';
 import Modal from './components/Modal';
 import MoveButtons from './components/MoveButtons';
@@ -113,8 +115,8 @@ function App() {
       tabIndex="0"
       onKeyDown={(event) => handleKeyDown(event)}
     >
-      <header className="header" data-testid="header">
-        <h1 className="header-title">Pony maze</h1>
+      <Header testId="header">
+        <h1 className={style.headerTitle}>Pony maze</h1>
         <Select
           label="Difficulty:"
           value={difficulty}
@@ -127,7 +129,7 @@ function App() {
             </option>
           ))}
         </Select>
-      </header>
+      </Header>
       <main className={style.main}>
         {maze && (
           <>

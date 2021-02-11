@@ -5,6 +5,11 @@
   outline: none;
 }
 
+.headerTitle {
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+}
+
 .main {
   display: flex;
   flex-direction: column;
