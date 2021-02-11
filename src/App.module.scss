@@ -1,0 +1,26 @@
+@import './style/mixins';
+@import './style/variables';
+
+.keypressHandler:focus {
+  outline: none;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.message {
+  margin: 2rem 0;
+}
+
+.maze {
+  margin: 1rem 0;
+  font-size: $font-size-small;
+
+  @include respond-tablet {
+    font-size: $font-size-medium;
+  }
+}

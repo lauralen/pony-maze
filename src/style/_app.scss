@@ -1,10 +1,6 @@
 @import './mixins';
 @import './variables';
 
-.keypress-handler:focus {
-  outline: none;
-}
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -17,26 +13,6 @@
 .header-title {
   font-size: $font-size-large;
   font-weight: $font-weight-bold;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-}
-
-.message {
-  margin: 2rem 0;
-}
-
-pre {
-  margin: 1rem 0;
-  font-size: $font-size-small;
-
-  @include respond-tablet {
-    font-size: $font-size-medium;
-  }
 }
 
 .west {

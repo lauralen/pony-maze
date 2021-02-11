@@ -4,6 +4,8 @@ import './style/index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
 
+import style from './App.module.scss';
+
 import Button from './components/Button';
 import Modal from './components/Modal';
 import MoveButtons from './components/MoveButtons';
@@ -106,7 +108,7 @@ function App() {
 
   return (
     <div
-      className="keypress-handler"
+      className={style.keypressHandler}
       role="button"
       tabIndex="0"
       onKeyDown={(event) => handleKeyDown(event)}
@@ -126,15 +128,17 @@ function App() {
           ))}
         </Select>
       </header>
-      <main>
+      <main className={style.main}>
         {maze && (
           <>
-            <pre data-testid="maze">{maze}</pre>
+            <pre className={style.maze} data-testid="maze">
+              {maze}
+            </pre>
             {result?.result === 'won' || result?.result === 'over' ? null : (
               <MoveButtons move={move} />
             )}
             {result?.message && !loading && (
-              <p className="message" data-testid="message">
+              <p className={style.message} data-testid="message">
                 {result.message}
               </p>
             )}
@@ -150,12 +154,12 @@ function App() {
           </>
         )}
         {loading && (
-          <p className="message" data-testid="loader">
+          <p className={style.message} data-testid="loader">
             Loading...
           </p>
         )}
         {error && (
-          <p className="message" data-testid="error">
+          <p className={style.message} data-testid="error">
             {error}
           </p>
         )}
