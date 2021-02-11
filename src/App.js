@@ -2,17 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './style/index.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faArrowLeft,
-  faArrowUp,
-  faArrowRight,
-  faArrowDown,
-  faQuestionCircle,
-  faTimes,
-} from '@fortawesome/free-solid-svg-icons';
+import { faQuestionCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import Button from './components/Button';
 import Modal from './components/Modal';
+import MoveButtons from './components/MoveButtons';
 import Select from './components/Select';
 
 import { loadMazeId, loadMaze, setMove } from './utils/api';
@@ -137,23 +131,7 @@ function App() {
           <>
             <pre data-testid="maze">{maze}</pre>
             {result?.result === 'won' || result?.result === 'over' ? null : (
-              <div className="move-buttons">
-                <Button className="west" onClick={() => move('west')}>
-                  <FontAwesomeIcon icon={faArrowLeft} />
-                </Button>
-                <Button className="north" onClick={() => move('north')}>
-                  <FontAwesomeIcon icon={faArrowUp} />
-                </Button>
-                <Button className="east" onClick={() => move('east')}>
-                  <FontAwesomeIcon icon={faArrowRight} />
-                </Button>
-                <Button className="south" onClick={() => move('south')}>
-                  <FontAwesomeIcon icon={faArrowDown} />
-                </Button>
-                <Button className="stay" onClick={() => move('stay')}>
-                  Stay
-                </Button>
-              </div>
+              <MoveButtons move={move} />
             )}
             {result?.message && !loading && (
               <p className="message" data-testid="message">
