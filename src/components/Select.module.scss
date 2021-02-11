@@ -1,12 +1,11 @@
-@import './mixins';
-@import './variables';
+@import '../style/variables';
 
-.select-wrapper {
+.selectWrapper {
   display: flex;
   align-items: center;
 }
 
-select {
+.select {
   margin-left: 1rem;
   padding: 0.5rem;
 }
