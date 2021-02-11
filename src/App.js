@@ -168,7 +168,7 @@ function App() {
       </main>
 
       <Button
-        className="round modal-open"
+        className="modalOpen"
         onClick={() => setModalOpen(true)}
         testId="btn-modal-open"
       >
@@ -186,7 +186,7 @@ function App() {
             move and enter to stay in current position.
           </p>
           <Button
-            className="modal-close"
+            className="modalClose"
             onClick={() => setModalOpen(false)}
             testId="btn-modal-close"
           >
